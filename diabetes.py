@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 diabetes = pd.read_csv("./Provisional_Diabetes_2020.csv", index_col=0)
 print(diabetes.info())
@@ -29,3 +30,6 @@ for x, y in diabetes.iterrows():
 diabetes["total_mc_uc"] = diabetes["Diabetes.uc"] + diabetes["Diabetes.mc"]
 diabetes["fraction_uc"] = (diabetes["Diabetes.uc"] / diabetes["total_mc_uc"])
 print(diabetes.info())
+
+diabetes_stats = diabetes.groupby("Sex")["total_mc_uc"].agg([min, max, np.mean, np.median])
+print(diabetes_stats)
